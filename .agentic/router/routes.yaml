@@ -1,0 +1,142 @@
+version: 1
+
+defaults:
+  axiom_order:
+    - universal
+    - domain
+    - job
+    - skill
+    - project
+    - current_user_instruction
+
+  conflict_policy:
+    default: higher_scope_wins
+    user_instruction_can_override:
+      - job
+      - skill
+      - project
+    user_instruction_cannot_override:
+      - safety
+      - security
+      - privacy
+      - destructive_actions_without_confirmation
+
+routes:
+  skill_creator:
+    description: Create, update, or register reusable agent skills and Claude Code skill adapters.
+    priority: 100
+    intent: doctrine_mutation
+
+    triggers:
+      - create skill
+      - new skill
+      - update skill
+      - modify skill
+      - skill creator
+      - add playbook
+      - add checklist
+
+    negative_triggers:
+      - fix application bug
+      - refactor production code
+      - deploy
+
+    axiom_stack:
+      - .agentic/axioms/universal.md
+      - .agentic/axioms/skills/skill-creator.md
+
+    skill: .agentic/skills/skill-creator/skill.md
+
+    required_context:
+      inspect_first:
+        - .agentic/skills/
+        - .claude/skills/
+        - .agentic/router/routes.yaml
+
+    allowed_tools:
+      - read
+      - grep
+      - write
+      - edit
+      - bash_test
+
+    disallowed_tools:
+      - production_deploy
+      - destructive_shell
+      - git_push
+
+    verification:
+      required: true
+      strategy: validate_template
+      preferred:
+        - python scripts/validate_template.py
+        - python -m pytest
+
+    output_contract: .agentic/outputs/creator-result.md
+
+    guardrails:
+      - .agentic/guardrails/dangerous-actions.md
+      - .agentic/guardrails/doctrine-mutation.md
+
+    doctrine_update:
+      propose_after_completion: false
+      auto_apply: false
+
+  axiom_creator:
+    description: Create, classify, update, or register axioms and route axiom stacks.
+    priority: 100
+    intent: doctrine_mutation
+
+    triggers:
+      - create axiom
+      - new axiom
+      - update axiom
+      - modify axiom
+      - add principle
+      - add doctrine rule
+      - axiom creator
+
+    negative_triggers:
+      - fix application bug
+      - refactor production code
+      - deploy
+
+    axiom_stack:
+      - .agentic/axioms/universal.md
+      - .agentic/axioms/skills/axiom-creator.md
+
+    skill: .agentic/skills/axiom-creator/skill.md
+
+    required_context:
+      inspect_first:
+        - .agentic/axioms/
+        - .agentic/router/routes.yaml
+
+    allowed_tools:
+      - read
+      - grep
+      - write
+      - edit
+      - bash_test
+
+    disallowed_tools:
+      - production_deploy
+      - destructive_shell
+      - git_push
+
+    verification:
+      required: true
+      strategy: validate_template
+      preferred:
+        - python scripts/validate_template.py
+        - python -m pytest
+
+    output_contract: .agentic/outputs/creator-result.md
+
+    guardrails:
+      - .agentic/guardrails/dangerous-actions.md
+      - .agentic/guardrails/doctrine-mutation.md
+
+    doctrine_update:
+      propose_after_completion: false
+      auto_apply: false
