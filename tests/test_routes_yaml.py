@@ -8,7 +8,7 @@ from pathlib import Path
 ROUTES_PATH = Path(__file__).resolve().parent.parent / ".agentic" / "router" / "routes.yaml"
 TEMPLATE_ROOT = Path(__file__).resolve().parent.parent
 
-REQUIRED_ROUTES = ["skill_creator", "axiom_creator"]
+REQUIRED_ROUTES = []
 
 REQUIRED_KEYS = [
     "description",

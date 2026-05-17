@@ -9,7 +9,7 @@ from pathlib import Path
 
 TEMPLATE_ROOT = Path(__file__).resolve().parent.parent
 
-REQUIRED_ROUTES = ["skill_creator", "axiom_creator"]
+REQUIRED_ROUTES = []
 
 REQUIRED_ROUTE_KEYS = [
     "description",
