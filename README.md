@@ -6,51 +6,72 @@ Drop-in infrastructure for building agent doctrine. Install it into any repo, th
 
 ## What is this?
 
-Most Claude Code setups are ad-hoc — a flat `CLAUDE.md`, maybe a few skills. This template gives you a **structured doctrine layer** that grows with your project:
+Think of your agent as a new team member. Without onboarding, they wing it — sometimes brilliantly, sometimes they force-push to main at 2am.
+
+This template is the **onboarding infrastructure**. You define the constitution (axioms), the playbooks (skills), the dispatch rules (router), and the safety boundaries (guardrails). Your agent consults them every session. They're version-controlled, so they improve over time.
 
 ```
-You install the template.
-       │
-       ▼
-You create axioms via /axiom-creator.
-  ("Every PR must include a test plan.")
-       │
-       ▼
-You create skills via /skill-creator.
-  ("PR review workflow: read diff → check axioms → run tests → report")
-       │
-       ▼
-You register the skill in routes.yaml.
-  (Now "review this PR" triggers your skill with your axioms.)
-       │
-       ▼
-Your agent runs with guardrails, principles,
-and verification — all defined by you.
+Your repo before:                    Your repo after:
+┌─────────────┐                     ┌──────────────────────────────┐
+│ CLAUDE.md   │                     │ CLAUDE.md  (bootstrap)       │
+│ (flat file) │                     │ .agentic/   (the constitution)│
+└─────────────┘                     │   axioms/   (principles)     │
+                                    │   skills/   (playbooks)      │
+                                    │   router/   (dispatch rules) │
+                                    │   guardrails/ (safety)       │
+                                    │ .claude/    (adapter layer)  │
+                                    └──────────────────────────────┘
 ```
 
-The `.agentic/` layer is portable — it's not tied to Claude Code. If you switch agent platforms later, the doctrine moves with you. Only the thin `.claude/` adapter layer is platform-specific.
+The `.agentic/` layer is portable — not tied to Claude Code. Switch platforms later, the doctrine moves with you. Only the thin `.claude/` adapter layer is Claude Code-specific.
 
 ---
 
 ## Why context infrastructure matters
 
-### Without it
+### The five problems it solves
 
-Claude Code starts fresh each session. You repeat the same instructions. You forget to mention a guardrail. A skill works differently depending on who invoked it. Your team has no shared doctrine — Alice's Claude acts one way, Bob's another. Over time, the `CLAUDE.md` becomes a graveyard of stale notes.
+**1. You repeat yourself.** Every session you remind the agent: "don't force-push, attribute sources, run tests after changes." With axioms, you say it once. Universal axioms fire on every task, automatically.
 
-### With it
+**2. Your team has no shared doctrine.** Alice's Claude reviews PRs one way, Bob's another. With the template, the doctrine lives in the repo — one source of truth, version-controlled, reviewed like code.
 
-| Component | Why it matters |
-|-----------|---------------|
-| **Axioms** | Principles that survive sessions. Universal axioms (`AX-UNIV`) fire on every task — safety, security, portable doctrine. Domain axioms (`AX-DOM`) fire on relevant tasks. Job, skill, and project axioms narrow further. No more "I forgot to tell Claude not to force-push." |
-| **Skills** | Reusable workflows with built-in verification. Every skill has the same four-file structure (`skill.md`, `axioms.md`, `checklist.md`, `output.md`), so they compose. Run skill A, feed its output to skill B, verify both with their checklists. |
-| **Router** | Auto-selects the right axioms and skill for a task. "Bull vs bear copper" → loads research-analysis domain axioms + for-and-against skill + verification strategy. No manual `--remember-to` flags. |
-| **Guardrails** | Hard stops. Dangerous actions always require confirmation. Doctrine files can't be mutated without asking. These fire regardless of which route, skill, or axiom stack is active. |
-| **Output contracts** | Every skill produces structured, predictable output. Risk-analysis output feeds directly into frontend-slides. No parsing guesswork. |
+**3. Skills drift.** A skill that worked last month now skips a step because someone edited the markdown and forgot to update the checklist. Every skill here has four locked files: `skill.md` (workflow), `axioms.md` (principles), `checklist.md` (verification), `output.md` (contract). They can't drift independently.
 
-### The problem this solves
+**4. Tasks hit the wrong context.** "Review this PR" loads a code-review skill — or does it? Without a router, the agent guesses. `routes.yaml` matches tasks to the right axioms, skill, and verification. No guessing.
 
-**Doctrine drift.** Without infrastructure, your agent principles are in your head, in a chat transcript, or scattered across multiple `CLAUDE.md` files. They decay. The template gives doctrine a home — version-controlled, structured, and portable. When you switch agent platforms, `.agentic/` moves with you. Only the thin `.claude/` adapter layer is Claude Code-specific.
+**5. No safety net.** A well-intentioned `rm -rf` or `git push --force` slips through. Guardrails are hard stops — they fire regardless of which route, skill, or axiom stack is active. They can't be overridden by user instruction.
+
+### How the pieces fit together
+
+```
+User asks: "Is copper a good bet for 2026?"
+
+     ┌──────────────────────────────┐
+     │  ROUTER (routes.yaml)       │
+     │  "good bet" → for-and-against│
+     └──────────┬───────────────────┘
+                │ loads
+     ┌──────────▼───────────────────┐
+     │  AXIOM STACK                 │
+     │  universal.md                │  ← always
+     │  research-analysis.md        │  ← matched by domain
+     │  for-and-against.md          │  ← matched by skill
+     └──────────┬───────────────────┘
+                │ feeds into
+     ┌──────────▼───────────────────┐
+     │  SKILL (for-and-against)    │
+     │  8-step research workflow    │
+     │  output → structured report  │
+     └──────────┬───────────────────┘
+                │ can chain into
+     ┌──────────▼───────────────────┐
+     │  NEXT SKILL (risk-analysis)  │
+     │  consumes report → profile   │
+     └──────────────────────────────┘
+
+Every step protected by guardrails.
+Every output verified by checklist.
+```
 
 ---
 
