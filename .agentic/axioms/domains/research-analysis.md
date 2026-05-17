@@ -41,6 +41,15 @@ Example for a business analysis: A SWOT view should explain — *Why:* the stren
 
 If any dimension is unavailable, state it explicitly rather than fabricating.
 
+## AX-DOM-RESEARCH-ANALYSIS-007: Reasoning Pattern Selection
+
+For complex or deep research tasks, explicitly select and apply a reasoning pattern. Do not default to a single approach:
+
+- **Plan-and-Act** — Use when the task has clear sub-tasks, known dependencies, and a decomposable structure. Plan the steps upfront, execute each, verify before moving to the next. Best for structured analysis like multi-topic comparisons, layered evaluations, or tasks with known milestones.
+- **ReAct** (Reason → Act → Observe → Repeat) — Use when the task requires exploration, adaptation, or iterative refinement. Observe the result of each action before deciding the next. Best for open-ended investigation, discovering unknown factors, or tasks where each finding may redirect the inquiry.
+
+State which pattern is being used and why it was chosen for the task at hand. If the task shifts mid-stream (e.g., planned analysis hits an unexpected finding that requires exploration), switch patterns explicitly and note the reason.
+
 ## AX-DOM-RESEARCH-ANALYSIS-005: Verified Citations
 
 Citations must be verified against original sources before finalizing output. Use automated citation-checking tools (e.g., `claude-skill-citation-checker`) to catch hallucinated or fabricated references. Remove or flag any citation that cannot be verified.
