@@ -78,12 +78,13 @@ Every output verified by checklist.
 ## Quick start
 
 ```bash
-# Install into your repo
+# Option A: Python installer
 python scripts/install_claude.py --target /path/to/your/repo
 
-# Or install as a Claude Code plugin
-# (after adding the marketplace, or from local path)
-claude --plugin-dir /path/to/agent-doctrine-template
+# Option B: Claude Code marketplace
+# (inside Claude Code — no terminal needed)
+/plugin marketplace add unravel-k/ai-context-infrastructure
+/plugin install agent-doctrine-template
 ```
 
 Then inside Claude Code in your repo:
@@ -202,15 +203,17 @@ python scripts/install_claude.py --target /path/to/your/repo
 
 The installer copies `.agentic/`, `.claude/skills/`, and a `CLAUDE.md` bootstrap. Existing `CLAUDE.md` is preserved unless you `--force`.
 
-### Via Claude Code plugin
+### Via Claude Code marketplace
 
-```bash
-# Local development
-claude --plugin-dir /path/to/agent-doctrine-template
-
-# From marketplace (once published)
-/plugin marketplace add unravel-k/context-engine
+From inside Claude Code:
+```
+/plugin marketplace add unravel-k/ai-context-infrastructure
 /plugin install agent-doctrine-template
+```
+
+Or for local development:
+```bash
+claude --plugin-dir /path/to/agent-doctrine-template
 ```
 
 ---
@@ -247,7 +250,8 @@ python scripts/validate_template.py # Structure-only validation
   skills/          # Thin Claude Code adapters (point to .agentic/ files)
 
 .claude-plugin/
-  plugin.json      # Claude Code plugin manifest
+  plugin.json        # Claude Code plugin manifest
+  marketplace.json   # Marketplace registry
 
 adapters/
   claude-code/     # CLAUDE.md bootstrap copied into target repos

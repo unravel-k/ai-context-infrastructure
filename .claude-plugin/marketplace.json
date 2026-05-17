@@ -1,0 +1,11 @@
+{
+  "name": "ai-context-infrastructure",
+  "owner": "unravel-k",
+  "plugins": [
+    {
+      "name": "agent-doctrine-template",
+      "source": ".",
+      "description": "Portable agent-doctrine infrastructure with axiom-creator and skill-creator. Build your own agent guardrails, principles, and reusable skills."
+    }
+  ]
+}
