@@ -28,6 +28,8 @@ Example phrasings:
 - "What evidence supports [position]?"
 - "Why might [topic] outperform / succeed?"
 
+For each viewpoint collected, also capture the Why, How, Who, When context if available (per AX-DOM-RESEARCH-ANALYSIS-006). Do not fabricate missing dimensions.
+
 Collect all viewpoints with their sources intact.
 
 ### Step 4: Query the "Against" Direction
@@ -38,6 +40,8 @@ Example phrasings:
 - "What are the bearish arguments against [topic]?"
 - "What evidence contradicts [position]?"
 - "Why might [topic] underperform / fail?"
+
+For each viewpoint collected, also capture the Why, How, Who, When context if available (per AX-DOM-RESEARCH-ANALYSIS-006). Do not fabricate missing dimensions.
 
 Collect all viewpoints with their sources intact.
 
