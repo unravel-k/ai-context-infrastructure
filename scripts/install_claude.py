@@ -85,23 +85,40 @@ def install(target: str, force: bool = False, dry_run: bool = False) -> int:
         print("  (force mode: existing files will be overwritten)")
     print()
 
+    # Validate that the template root is correct
+    src_agentic = template_root / ".agentic"
+    src_claude_skills = template_root / ".claude" / "skills"
+    src_claude_md = template_root / "adapters" / "claude-code" / "CLAUDE.md"
+
+    if not src_agentic.exists():
+        print(f"Error: .agentic/ not found at {src_agentic}")
+        print(f"  Template root appears to be: {template_root}")
+        print(f"  Make sure you run this script from within the cloned ai-context-infrastructure directory.")
+        return 1
+    if not src_claude_skills.exists():
+        print(f"Error: .claude/skills/ not found at {src_claude_skills}")
+        return 1
+    if not src_claude_md.exists():
+        print(f"Error: CLAUDE.md source not found at {src_claude_md}")
+        return 1
+
+    print(f"Source: {template_root}")
+    print()
+
     # Collect results
     all_results = {"created": [], "skipped": [], "overwritten": []}
 
     # 1. Copy .agentic/ directory
-    src_agentic = template_root / ".agentic"
     dst_agentic = target_path / ".agentic"
     r = copy_dir(src_agentic, dst_agentic, force=force, dry_run=dry_run)
     all_results = merge_results(all_results, r)
 
     # 2. Copy .claude/skills/ directory
-    src_claude_skills = template_root / ".claude" / "skills"
     dst_claude_skills = target_path / ".claude" / "skills"
     r = copy_dir(src_claude_skills, dst_claude_skills, force=force, dry_run=dry_run)
     all_results = merge_results(all_results, r)
 
     # 3. Copy CLAUDE.md (special: do not overwrite without --force)
-    src_claude_md = template_root / "adapters" / "claude-code" / "CLAUDE.md"
     dst_claude_md = target_path / "CLAUDE.md"
 
     # Check for pre-existing CLAUDE.md before copying
