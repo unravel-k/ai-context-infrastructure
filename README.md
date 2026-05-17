@@ -77,17 +77,23 @@ Every output verified by checklist.
 
 ## Quick start
 
-```bash
-# Option A: Python installer
-python scripts/install_claude.py --target /path/to/your/repo
+### Option A: Install into an existing repo
 
-# Option B: Claude Code marketplace
-# (inside Claude Code — no terminal needed)
+```bash
+git clone https://github.com/unravel-k/ai-context-infrastructure.git
+python ai-context-infrastructure/scripts/install_claude.py --target /path/to/your/repo
+```
+
+### Option B: Claude Code marketplace
+
+Inside Claude Code (no terminal needed):
+
+```
 /plugin marketplace add unravel-k/ai-context-infrastructure
 /plugin install agent-doctrine-template
 ```
 
-Then inside Claude Code in your repo:
+Then, inside Claude Code in your repo:
 
 ```
 /skill-creator    →  Build your first skill
