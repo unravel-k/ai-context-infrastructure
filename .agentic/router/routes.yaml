@@ -86,3 +86,69 @@ routes:
     doctrine_update:
       propose_after_completion: false
       auto_apply: false
+
+  multi-views:
+    description: Research and compare multiple topics side-by-side. Runs for-and-against per topic, then synthesizes cross-comparison with shared themes, divergences, and qualitative ranking.
+    priority: 85
+    intent: analysis
+
+    triggers:
+      - multi views
+      - multi asset
+      - compare
+      - comparison
+      - side by side
+      - versus
+      - vs
+      - asset battle
+      - pick between
+      - which is better
+
+    negative_triggers:
+      - fix application bug
+      - refactor production code
+      - deploy
+
+    axiom_stack:
+      - .agentic/axioms/universal.md
+      - .agentic/axioms/domains/research-analysis.md
+      - .agentic/axioms/skills/multi-views.md
+
+    skill: .agentic/skills/multi-views/skill.md
+
+    required_context:
+      inspect_first:
+        - .agentic/skills/multi-views/
+        - .agentic/skills/for-and-against/
+
+    allowed_tools:
+      - read
+      - grep
+      - write
+      - edit
+      - bash_test
+      - web_search
+      - web_fetch
+      - mcp_tools
+
+    disallowed_tools:
+      - production_deploy
+      - destructive_shell
+      - git_push
+
+    verification:
+      required: true
+      strategy: checklist
+      preferred:
+        - Confirm for-and-against ran independently per topic
+        - Cross-check cross-cutting themes are supported by per-topic data
+        - Verify ranking includes direct reasons per topic
+
+    output_contract: .agentic/skills/multi-views/output.md
+
+    guardrails:
+      - .agentic/guardrails/dangerous-actions.md
+
+    doctrine_update:
+      propose_after_completion: false
+      auto_apply: false
