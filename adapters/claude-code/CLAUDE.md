@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-This repo uses `.agentic/` as its canonical, portable source of truth for agent doctrine.
+This repo uses `.agentic/` as its canonical, portable source of truth for AI context infrastructure.
 
 ## Key Directories
 

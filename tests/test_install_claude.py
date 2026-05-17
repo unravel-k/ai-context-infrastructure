@@ -94,7 +94,7 @@ def test_force_overwrites_claude_md(target_dir):
 
     # CLAUDE.md should be overwritten
     content = existing_md.read_text()
-    assert "agent-doctrine" in content.lower() or ".agentic/" in content
+    assert "ai-context-infrastructure" in content.lower() or ".agentic/" in content
 
 
 def test_force_overwrites_agentic_files(target_dir):

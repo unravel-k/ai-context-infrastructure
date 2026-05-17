@@ -1,1 +1,1 @@
-# Test package for agent-doctrine-template
+# Test package for ai-context-infrastructure

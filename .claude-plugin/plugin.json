@@ -1,7 +1,7 @@
 {
-  "name": "agent-doctrine-template",
+  "name": "ai-context-infrastructure",
   "version": "1.0.0",
-  "description": "Portable agent-doctrine infrastructure with axiom-creator and skill-creator. Build your own agent guardrails, principles, and reusable skills.",
+  "description": "Portable AI context infrastructure with axiom-creator and skill-creator. Build your own agent guardrails, principles, and reusable skills.",
   "author": { "name": "unravel-k" },
   "skills": [
     ".claude/skills/skill-creator/SKILL.md",

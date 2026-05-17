@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Install the agent-doctrine template into a target repository."""
+"""Install the ai-context-infrastructure into a target repository."""
 
 import argparse
 import os
@@ -78,7 +78,7 @@ def install(target: str, force: bool = False, dry_run: bool = False) -> int:
         print(f"Error: target directory does not exist: {target_path}")
         return 1
 
-    print(f"Installing agent-doctrine template to: {target_path}")
+    print(f"Installing ai-context-infrastructure to: {target_path}")
     if dry_run:
         print("  (dry-run mode: no files will be written)")
     if force:
@@ -135,7 +135,7 @@ def install(target: str, force: bool = False, dry_run: bool = False) -> int:
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Install the agent-doctrine template into a target repository."
+        description="Install the ai-context-infrastructure into a target repository."
     )
     parser.add_argument(
         "--target",

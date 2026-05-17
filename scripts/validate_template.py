@@ -148,7 +148,7 @@ def validate_claude_skills() -> bool:
 
 
 def main():
-    print("Agent-Doctrine Template Validator")
+    print("AI Context Infrastructure Validator")
     print(f"Template root: {TEMPLATE_ROOT}")
 
     results = []

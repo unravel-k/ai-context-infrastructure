@@ -3,9 +3,9 @@ requires = ["setuptools>=68.0"]
 build-backend = "setuptools.backends._legacy:_Backend"
 
 [project]
-name = "agent-doctrine-template"
+name = "ai-context-infrastructure"
 version = "1.0.0"
-description = "A portable, reusable agent-doctrine template with Claude Code adapter"
+description = "A portable, reusable AI context infrastructure with Claude Code adapter"
 requires-python = ">=3.8"
 
 [project.optional-dependencies]

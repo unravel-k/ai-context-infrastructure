@@ -1,4 +1,4 @@
-# Agent Doctrine Template
+# AI Context Infrastructure
 
 Drop-in infrastructure for building agent doctrine. Install it into any repo, then use `/skill-creator` and `/axiom-creator` to build your own axioms, principles, guardrails, and reusable skills. The bundled analysis skills are **examples** showing what you can build — the real product is the creator meta-skills and the `.agentic/` doctrine layer.
 
@@ -90,7 +90,7 @@ Inside Claude Code (no terminal needed):
 
 ```
 /plugin marketplace add unravel-k/ai-context-infrastructure
-/plugin install agent-doctrine-template
+/plugin install ai-context-infrastructure
 ```
 
 Then, inside Claude Code in your repo:
@@ -214,12 +214,12 @@ The installer copies `.agentic/`, `.claude/skills/`, and a `CLAUDE.md` bootstrap
 From inside Claude Code:
 ```
 /plugin marketplace add unravel-k/ai-context-infrastructure
-/plugin install agent-doctrine-template
+/plugin install ai-context-infrastructure
 ```
 
 Or for local development:
 ```bash
-claude --plugin-dir /path/to/agent-doctrine-template
+claude --plugin-dir /path/to/ai-context-infrastructure
 ```
 
 ---
