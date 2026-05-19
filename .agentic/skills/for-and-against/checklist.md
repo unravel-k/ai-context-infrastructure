@@ -7,6 +7,7 @@
 - [ ] Queried "against" direction independently
 - [ ] Classified views as consensus or contrarian where applicable
 - [ ] Attributed every claim with source (URL+title or title+author)
+- [ ] Verified every citation is inline at point of use (not deferred to bibliography)
 - [ ] Flagged any unattributed claims
 - [ ] Ran citation-checker against all URLs/sources (if available)
 - [ ] Removed or flagged any unverifiable citations

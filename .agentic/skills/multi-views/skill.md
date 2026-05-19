@@ -60,7 +60,7 @@ Rank the topics ordinally — no fabricated scores, just qualitative ordering:
 
 Produce the final output:
 
-1. **Per-topic summaries** (condensed from for-and-against outputs, sources preserved)
+1. **Per-topic summaries** (condensed from for-and-against outputs, sources preserved with inline citations at point of use)
 2. **Cross-cutting themes** (shared catalysts, divergences, correlations)
 3. **Comparison table** (side-by-side)
 4. **Ranking** (qualitative ordering with direct reasons)

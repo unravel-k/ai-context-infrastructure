@@ -152,3 +152,65 @@ routes:
     doctrine_update:
       propose_after_completion: false
       auto_apply: false
+
+  verify-citations:
+    description: Verify that citations and references in any text point to real, matching sources. Catch hallucinated URLs, broken links, misattributed claims, and fabricated references.
+    priority: 70
+    intent: verification
+
+    triggers:
+      - verify citations
+      - check citations
+      - citation check
+      - check references
+      - verify references
+      - fact check
+      - source check
+      - are these sources real
+
+    negative_triggers:
+      - fix application bug
+      - refactor production code
+      - deploy
+
+    axiom_stack:
+      - .agentic/axioms/universal.md
+      - .agentic/axioms/domains/research-analysis.md
+      - .agentic/axioms/skills/verify-citations.md
+
+    skill: .agentic/skills/verify-citations/skill.md
+
+    required_context:
+      inspect_first:
+        - .agentic/skills/verify-citations/
+
+    allowed_tools:
+      - read
+      - grep
+      - write
+      - edit
+      - bash_test
+      - web_search
+      - web_fetch
+      - mcp_tools
+
+    disallowed_tools:
+      - production_deploy
+      - destructive_shell
+      - git_push
+
+    verification:
+      required: true
+      strategy: checklist
+      preferred:
+        - Confirm every citation was classified (verified/broken/hallucinated/misattributed/unverifiable)
+        - Confirm claims were preserved when possible
+
+    output_contract: .agentic/skills/verify-citations/output.md
+
+    guardrails:
+      - .agentic/guardrails/dangerous-actions.md
+
+    doctrine_update:
+      propose_after_completion: false
+      auto_apply: false

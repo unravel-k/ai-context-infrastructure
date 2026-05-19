@@ -22,8 +22,8 @@ List each distinct side of the bet or decision. A "side" is a discrete outcome o
 
 For each side, extract the individual viewpoints that support it. Each view should have:
 - The claim or argument
+- The source (preserved from input, with inline citation at point of use per AX-DOM-RESEARCH-ANALYSIS-002)
 - The Why, How, Who, When context if available (per AX-DOM-RESEARCH-ANALYSIS-006)
-- The source (preserved from input)
 - Any supporting evidence
 
 If the input views lack Why/How/Who/When context, note this as a limitation in the risk profile — views without mechanism or stakeholder context carry higher uncertainty.

@@ -65,20 +65,13 @@ For every viewpoint, provide source attribution. Use whichever is available:
 | Title only            | `Title`                               |
 | Author only           | `Author`                              |
 
+Citations must be **inline at the point of use** — the same sentence or immediately after the claim. Do not defer citations to a bibliography section. Every claim-sentence that asserts a fact must carry its source directly (per AX-DOM-RESEARCH-ANALYSIS-002).
+
 Never present a claim without attribution. If no source is available, flag it: *(source unavailable)*.
 
 ### Step 7: Verify Citations
 
-Before finalizing, check all citations for hallucinations:
-
-1. Check if a citation-checking tool is available (e.g., `claude-skill-citation-checker`).
-2. If available, run it against every URL and source reference in the draft output.
-3. For any citation that fails verification:
-   - Remove the claim if it cannot be sourced elsewhere.
-   - Flag it: *(citation unverified)* if the claim is corroborated by other verified sources.
-4. If no citation-checking tool is available, spot-check: re-fetch a sample of URLs to confirm they resolve to the claimed content.
-
-Do not proceed to synthesis until all citations are verified or flagged.
+Delegate to the `verify-citations` skill. Run it against the draft output to catch hallucinated URLs, broken links, misattributed claims, or fabricated references. Do not proceed to synthesis until all citations are verified, flagged, or removed per the verify-citations workflow.
 
 ### Step 8: Synthesize the Output
 
