@@ -161,29 +161,65 @@ Routes any non-trivial task through `routes.yaml`. Loads the right axioms, skill
 
 ---
 
+## Routes (`routes.yaml`)
+
+The router maps user intent to the right axiom stack, skill, and verification. Three routes ship with the template:
+
+| Route | Priority | Triggers match when user says... |
+|-------|----------|----------------------------------|
+| `multi-views` | 85 | "compare", "vs", "which is better", "side by side", "pick between" |
+| `for-and-against` | 80 | "bull vs bear", "pros and cons", "both sides", "for and against", "balanced view" |
+| `verify-citations` | 70 | "verify citations", "check references", "fact check", "are these sources real" |
+
+Higher priority wins when multiple routes match. Negative triggers (like "deploy") prevent false matches. If no route matches, universal axioms still apply.
+
+---
+
 ## Example skills (what you can build)
 
 These are **examples** built with the creator skills above. They demonstrate what the infrastructure produces, but the creators are the product.
 
-**`/for-and-against`** — Research a topic from opposing viewpoints. Queries bullish/for and bearish/against independently. Classifies consensus vs contrarian views. Verifies citations. Attributes every source. Captures Why/How/Who/When context. Chains into risk-analysis.
+### Research
 
-**`/risk-analysis`** — Consume views and evaluate impact + likelihood per side. Build a qualitative risk profile. No fake percentages. Every "why" is a direct reason about that specific side, never a comparison. Designed to chain after for-and-against.
+**`/for-and-against`** — Research a topic from opposing viewpoints. Queries bullish/for and bearish/against independently. Classifies consensus vs contrarian. Attributes every source with inline citations. Captures Why/How/Who/When context. Chains into risk-analysis or multi-views.
+
+**`/multi-views`** — Compare multiple topics side-by-side. Runs for-and-against per topic independently, then synthesizes cross-cutting themes, shared catalysts, divergences, and qualitative ranking. For "X vs Y vs Z" questions.
+
+**`/risk-analysis`** — Consume views (from for-and-against or elsewhere) and evaluate impact + likelihood per side. Build a qualitative risk profile. No fake percentages. Every "why" is a direct reason about that side. Chains after for-and-against.
+
+### Verification
+
+**`/verify-citations`** — Check citation **authenticity**. Catch hallucinated URLs, broken links, misattributed claims, and fabricated references. Classifies every citation as verified, broken, hallucinated, misattributed, or unverifiable. Called from for-and-against Step 7, or standalone.
+
+**`/check-inline-citations`** — Check citation **placement**. Scan any draft and flag factual claims missing inline citations at point of use. Reports coverage stats. Never fabricates sources.
+
+### Presentation
 
 **`/frontend-slides`** — Generate animation-rich HTML presentations from scratch or PPTX. Visual style previews — pick by seeing. Single self-contained HTML file. Built by [zarazhangrui](https://github.com/zarazhangrui/frontend-slides).
 
-### Example chain (all three composed)
+### Example chain
 
 ```
-/for-and-against "copper supply 2026"   →  research with sources
-/risk-analysis                           →  risk profile from that research
+/for-and-against "copper supply 2026"   →  research with inline citations
+/verify-citations                        →  check every source is real
+/risk-analysis                           →  risk profile from verified research
 /frontend-slides                        →  presentation from the analysis
+```
+
+Or for comparison:
+
+```
+/multi-views "copper vs lithium vs aluminum 2026"
+  → runs /for-and-against × 3
+  → synthesizes cross-comparison
+  → ranks by qualitative strength
 ```
 
 ---
 
 ## Example axiom domain: Research & Analysis
 
-Shipped as an example of what doctrine looks like. All six axioms are built around **trust through transparency**:
+Shipped as an example of what doctrine looks like. All seven axioms are built around **trust through transparency**:
 
 1. **Full Attribution** — Every claim carries source (URL + title preferred)
 2. **In-Text Citation** — Sources at point of use, not buried in footnotes
@@ -191,6 +227,7 @@ Shipped as an example of what doctrine looks like. All six axioms are built arou
 4. **Interactive Citations** — HTML: hover a citation to see the original snippet
 5. **Verified Citations** — Automated checks catch hallucinated references (uses [claude-skill-citation-checker](https://github.com/PHY041/claude-skill-citation-checker) by PHY041)
 6. **Why, How, Who, When** — Every view explains catalyst, mechanism, stakeholders + game theory, and timeline
+7. **Reasoning Pattern Selection** — Choose plan-and-act (structured tasks) or ReAct (exploratory tasks) explicitly
 
 ---
 
