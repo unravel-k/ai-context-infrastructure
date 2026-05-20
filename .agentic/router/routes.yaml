@@ -214,3 +214,64 @@ routes:
     doctrine_update:
       propose_after_completion: false
       auto_apply: false
+
+  perplexity-search:
+    description: Search the web via Perplexity API with structured results, citations, and source attribution. Supports quick factual queries and deep reasoning via sonar and sonar-reasoning models.
+    priority: 90
+    intent: data_source
+
+    triggers:
+      - search for
+      - look up
+      - what is the price
+      - stock quote
+      - current price
+      - perplexity
+      - web search
+      - find me
+      - get data on
+
+    negative_triggers:
+      - fix application bug
+      - refactor production code
+      - deploy
+
+    axiom_stack:
+      - .agentic/axioms/universal.md
+      - .agentic/axioms/domains/research-analysis.md
+      - .agentic/axioms/skills/perplexity-search.md
+
+    skill: .agentic/skills/perplexity-search/skill.md
+
+    required_context:
+      inspect_first:
+        - .agentic/skills/perplexity-search/
+
+    allowed_tools:
+      - read
+      - grep
+      - write
+      - edit
+      - bash_test
+      - bash
+
+    disallowed_tools:
+      - production_deploy
+      - destructive_shell
+      - git_push
+
+    verification:
+      required: true
+      strategy: checklist
+      preferred:
+        - Confirm API returned citations
+        - Confirm citations are presented inline
+
+    output_contract: .agentic/skills/perplexity-search/output.md
+
+    guardrails:
+      - .agentic/guardrails/dangerous-actions.md
+
+    doctrine_update:
+      propose_after_completion: false
+      auto_apply: false
